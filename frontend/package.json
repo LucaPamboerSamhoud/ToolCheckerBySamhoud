@@ -18,6 +18,8 @@
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-label": "^2.1.8",
     "@tailwindcss/vite": "^4.1.18",
+    "@vitejs/plugin-react-swc": "^4.2.3",
+    "esbuild-wasm": "^0.27.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.1.18"

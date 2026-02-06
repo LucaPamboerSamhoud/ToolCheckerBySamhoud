@@ -1,14 +1,7 @@
 import httpx
 from bs4 import BeautifulSoup
-from langchain_community.utilities import BingSearchAPIWrapper
+from ddgs import DDGS
 from langchain_core.tools import tool
-
-from ..config import settings
-
-_bing = BingSearchAPIWrapper(
-    bing_subscription_key=settings.bing_subscription_key,
-    k=10,
-)
 
 
 @tool
@@ -18,16 +11,21 @@ def web_search(query: str) -> str:
     Args:
         query: De zoekopdracht, bijv. 'Notion privacy policy GDPR'
     """
-    results = _bing.results(query, num_results=10)
+    try:
+        with DDGS() as ddgs:
+            results = list(ddgs.text(query, max_results=10))
+    except Exception as e:
+        return f"Zoekfout: {e}"
+
     if not results:
         return "Geen zoekresultaten gevonden."
 
     output = []
     for r in results:
         title = r.get("title", "Geen titel")
-        link = r.get("link", "")
-        snippet = r.get("snippet", "")
-        output.append(f"**{title}**\nURL: {link}\n{snippet}")
+        url = r.get("href", "")
+        snippet = r.get("body", "")
+        output.append(f"**{title}**\nURL: {url}\n{snippet}")
 
     return "\n\n---\n\n".join(output)
 
