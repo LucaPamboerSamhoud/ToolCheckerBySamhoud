@@ -58,12 +58,6 @@ export function startComplianceCheck(
   onResult: (result: ComplianceResult) => void,
   onError: (error: string) => void
 ): () => void {
-  const eventSource = new EventSource(
-    `/api/check?tool_name=${encodeURIComponent(toolName)}`,
-  );
-
-  // We zullen een POST doen via fetch met SSE, maar EventSource ondersteunt alleen GET.
-  // Laten we een andere aanpak gebruiken: fetch met ReadableStream
   const controller = new AbortController();
 
   fetch("/api/check", {
@@ -123,9 +117,6 @@ export function startComplianceCheck(
         onError(`Verbindingsfout: ${err.message}`);
       }
     });
-
-  // Sluit EventSource (niet meer nodig)
-  eventSource.close();
 
   return () => controller.abort();
 }

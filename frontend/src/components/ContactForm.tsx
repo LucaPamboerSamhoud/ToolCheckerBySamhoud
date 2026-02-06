@@ -138,7 +138,7 @@ export default function ContactForm({ toolName }: { toolName: string }) {
 
         <p className="text-xs text-gray-400 text-center">
           Door het rapport te downloaden ga je akkoord met het delen van je
-          contactgegevens met &samhoud.
+          contactgegevens met {"&samhoud"}.
         </p>
       </form>
     </div>

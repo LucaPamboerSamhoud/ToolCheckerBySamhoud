@@ -60,7 +60,7 @@ export default function App() {
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-samhoud-blue" />
             <span className="font-semibold text-samhoud-blue text-sm">
-              &samhoud
+              {"&samhoud"}
             </span>
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="py-6 text-center text-xs text-gray-400">
-        <p>&copy; {new Date().getFullYear()} &samhoud — ToolChecker</p>
+        <p>&copy; {new Date().getFullYear()} {"&samhoud"} — ToolChecker</p>
       </footer>
     </div>
   );
