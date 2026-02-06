@@ -1,3 +1,5 @@
+// === Types ===
+
 export interface Source {
   url: string;
   title: string;
@@ -52,6 +54,22 @@ export interface LeadData {
   tool_name: string;
 }
 
+export interface ToolSearchResult {
+  name: string;
+  url: string;
+  description: string;
+}
+
+// === API Functions ===
+
+export async function searchTool(query: string): Promise<ToolSearchResult[]> {
+  const response = await fetch(
+    `/api/search-tool?q=${encodeURIComponent(query)}`
+  );
+  if (!response.ok) return [];
+  return response.json();
+}
+
 export function startComplianceCheck(
   toolName: string,
   onProgress: (update: ProgressUpdate) => void,
@@ -96,7 +114,6 @@ export function startComplianceCheck(
 
             try {
               const parsed = JSON.parse(data);
-              // Bepaal type op basis van aanwezigheid van 'step' (progress) of 'overall_status' (result)
               if ("step" in parsed) {
                 onProgress(parsed as ProgressUpdate);
               } else if ("overall_status" in parsed) {

@@ -1,7 +1,8 @@
 import json
 import logging
 
-from fastapi import APIRouter, HTTPException
+from ddgs import DDGS
+from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from sse_starlette.sse import EventSourceResponse
 
@@ -21,6 +22,27 @@ router = APIRouter(prefix="/api")
 
 # In-memory opslag van recente resultaten (simpel, geen database)
 _recent_results: dict[str, ComplianceResult] = {}
+
+
+@router.get("/search-tool")
+async def search_tool(q: str = Query(..., min_length=1, max_length=100)):
+    """Zoek naar een tool om te bevestigen welke de gebruiker bedoelt."""
+    try:
+        with DDGS() as ddgs:
+            results = list(ddgs.text(f"{q} software official site", max_results=5))
+    except Exception as e:
+        logger.error(f"Tool search failed: {e}")
+        return []
+
+    return [
+        {
+            "name": r.get("title", ""),
+            "url": r.get("href", ""),
+            "description": r.get("body", ""),
+        }
+        for r in results
+        if r.get("href")
+    ]
 
 
 @router.post("/check")
