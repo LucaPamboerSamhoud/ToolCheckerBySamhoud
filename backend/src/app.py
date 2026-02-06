@@ -38,7 +38,11 @@ async def health_check():
     return {"status": "healthy"}
 
 
-# Serveer de gebouwde frontend (productie)
+# Serveer de gebouwde frontend (alleen in productie, niet wanneer dev-server draait)
+# De StaticFiles mount op "/" moet ONDER alle API routes staan.
+# Starlette verwerkt routes in volgorde — de router routes worden eerst gecheckt.
+import os
+
 _frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
-if _frontend_dist.is_dir():
+if _frontend_dist.is_dir() and os.environ.get("SERVE_FRONTEND", "").lower() == "true":
     app.mount("/", StaticFiles(directory=str(_frontend_dist), html=True), name="frontend")
