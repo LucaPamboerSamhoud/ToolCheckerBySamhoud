@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  /* &samhoud kleuren */
+  --color-samhoud-blue: #0c2aad;
+  --color-samhoud-light-blue: #4272ab;
+  --color-samhoud-orange: #ffa314;
+  --color-samhoud-dark: #1a1a2e;
+
+  /* Stoplicht kleuren */
+  --color-status-green: #2e7d32;
+  --color-status-orange: #f57c00;
+  --color-status-red: #c62828;
+
+  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fe 0%, #e8ecf8 100%);
+}
