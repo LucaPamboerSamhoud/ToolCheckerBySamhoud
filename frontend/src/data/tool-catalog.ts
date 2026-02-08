@@ -1,0 +1,273 @@
+/**
+ * Uitgebreide catalogus van populaire software tools voor autocomplete.
+ * Wanneer een gebruiker typt, worden suggesties direct getoond.
+ * Als de tool niet in deze lijst staat, wordt de DuckDuckGo + LLM zoekfunctie gebruikt.
+ */
+
+export interface CatalogTool {
+  name: string;
+  url: string;
+  category: string;
+}
+
+export const TOOL_CATALOG: CatalogTool[] = [
+  // --- Communicatie & Samenwerking ---
+  { name: "Slack", url: "https://slack.com", category: "Communicatie" },
+  { name: "Microsoft Teams", url: "https://teams.microsoft.com", category: "Communicatie" },
+  { name: "Zoom", url: "https://zoom.us", category: "Communicatie" },
+  { name: "Google Meet", url: "https://meet.google.com", category: "Communicatie" },
+  { name: "Webex", url: "https://webex.com", category: "Communicatie" },
+  { name: "Discord", url: "https://discord.com", category: "Communicatie" },
+  { name: "Telegram", url: "https://telegram.org", category: "Communicatie" },
+  { name: "WhatsApp Business", url: "https://business.whatsapp.com", category: "Communicatie" },
+  { name: "Signal", url: "https://signal.org", category: "Communicatie" },
+  { name: "GoTo Meeting", url: "https://goto.com", category: "Communicatie" },
+  { name: "RingCentral", url: "https://ringcentral.com", category: "Communicatie" },
+  { name: "Loom", url: "https://loom.com", category: "Communicatie" },
+  { name: "Whereby", url: "https://whereby.com", category: "Communicatie" },
+  { name: "Around", url: "https://around.co", category: "Communicatie" },
+
+  // --- Projectmanagement & Productiviteit ---
+  { name: "Notion", url: "https://notion.so", category: "Productiviteit" },
+  { name: "Asana", url: "https://asana.com", category: "Projectmanagement" },
+  { name: "Trello", url: "https://trello.com", category: "Projectmanagement" },
+  { name: "Jira", url: "https://atlassian.com/software/jira", category: "Projectmanagement" },
+  { name: "Monday.com", url: "https://monday.com", category: "Projectmanagement" },
+  { name: "ClickUp", url: "https://clickup.com", category: "Projectmanagement" },
+  { name: "Basecamp", url: "https://basecamp.com", category: "Projectmanagement" },
+  { name: "Linear", url: "https://linear.app", category: "Projectmanagement" },
+  { name: "Wrike", url: "https://wrike.com", category: "Projectmanagement" },
+  { name: "Smartsheet", url: "https://smartsheet.com", category: "Projectmanagement" },
+  { name: "Teamwork", url: "https://teamwork.com", category: "Projectmanagement" },
+  { name: "Todoist", url: "https://todoist.com", category: "Productiviteit" },
+  { name: "Evernote", url: "https://evernote.com", category: "Productiviteit" },
+  { name: "Obsidian", url: "https://obsidian.md", category: "Productiviteit" },
+  { name: "Coda", url: "https://coda.io", category: "Productiviteit" },
+  { name: "Airtable", url: "https://airtable.com", category: "Productiviteit" },
+
+  // --- Cloud & Opslag ---
+  { name: "Google Drive", url: "https://drive.google.com", category: "Cloud & Opslag" },
+  { name: "OneDrive", url: "https://onedrive.live.com", category: "Cloud & Opslag" },
+  { name: "Dropbox", url: "https://dropbox.com", category: "Cloud & Opslag" },
+  { name: "Box", url: "https://box.com", category: "Cloud & Opslag" },
+  { name: "SharePoint", url: "https://sharepoint.com", category: "Cloud & Opslag" },
+  { name: "iCloud", url: "https://icloud.com", category: "Cloud & Opslag" },
+  { name: "WeTransfer", url: "https://wetransfer.com", category: "Cloud & Opslag" },
+  { name: "pCloud", url: "https://pcloud.com", category: "Cloud & Opslag" },
+
+  // --- AI & Machine Learning ---
+  { name: "ChatGPT", url: "https://chat.openai.com", category: "AI" },
+  { name: "Claude", url: "https://claude.ai", category: "AI" },
+  { name: "Google Gemini", url: "https://gemini.google.com", category: "AI" },
+  { name: "Microsoft Copilot", url: "https://copilot.microsoft.com", category: "AI" },
+  { name: "Perplexity", url: "https://perplexity.ai", category: "AI" },
+  { name: "Midjourney", url: "https://midjourney.com", category: "AI" },
+  { name: "DALL-E", url: "https://openai.com/dall-e", category: "AI" },
+  { name: "Jasper", url: "https://jasper.ai", category: "AI" },
+  { name: "Copy.ai", url: "https://copy.ai", category: "AI" },
+  { name: "Grammarly", url: "https://grammarly.com", category: "AI" },
+  { name: "Otter.ai", url: "https://otter.ai", category: "AI" },
+  { name: "Fireflies.ai", url: "https://fireflies.ai", category: "AI" },
+  { name: "Synthesia", url: "https://synthesia.io", category: "AI" },
+  { name: "Runway", url: "https://runwayml.com", category: "AI" },
+  { name: "ElevenLabs", url: "https://elevenlabs.io", category: "AI" },
+  { name: "Cursor", url: "https://cursor.com", category: "AI" },
+  { name: "GitHub Copilot", url: "https://github.com/features/copilot", category: "AI" },
+  { name: "Notion AI", url: "https://notion.so/product/ai", category: "AI" },
+  { name: "DeepL", url: "https://deepl.com", category: "AI" },
+  { name: "Descript", url: "https://descript.com", category: "AI" },
+
+  // --- CRM & Sales ---
+  { name: "Salesforce", url: "https://salesforce.com", category: "CRM" },
+  { name: "HubSpot", url: "https://hubspot.com", category: "CRM" },
+  { name: "Pipedrive", url: "https://pipedrive.com", category: "CRM" },
+  { name: "Zoho CRM", url: "https://zoho.com/crm", category: "CRM" },
+  { name: "Microsoft Dynamics 365", url: "https://dynamics.microsoft.com", category: "CRM" },
+  { name: "Freshsales", url: "https://freshworks.com/crm/sales", category: "CRM" },
+  { name: "Close", url: "https://close.com", category: "CRM" },
+  { name: "Apollo.io", url: "https://apollo.io", category: "CRM" },
+
+  // --- Marketing ---
+  { name: "Mailchimp", url: "https://mailchimp.com", category: "Marketing" },
+  { name: "ActiveCampaign", url: "https://activecampaign.com", category: "Marketing" },
+  { name: "Brevo", url: "https://brevo.com", category: "Marketing" },
+  { name: "Constant Contact", url: "https://constantcontact.com", category: "Marketing" },
+  { name: "ConvertKit", url: "https://convertkit.com", category: "Marketing" },
+  { name: "Hootsuite", url: "https://hootsuite.com", category: "Marketing" },
+  { name: "Buffer", url: "https://buffer.com", category: "Marketing" },
+  { name: "Sprout Social", url: "https://sproutsocial.com", category: "Marketing" },
+  { name: "SEMrush", url: "https://semrush.com", category: "Marketing" },
+  { name: "Moz", url: "https://moz.com", category: "Marketing" },
+  { name: "Google Analytics", url: "https://analytics.google.com", category: "Marketing" },
+  { name: "Hotjar", url: "https://hotjar.com", category: "Marketing" },
+  { name: "Mixpanel", url: "https://mixpanel.com", category: "Marketing" },
+  { name: "Amplitude", url: "https://amplitude.com", category: "Marketing" },
+
+  // --- Design & Creative ---
+  { name: "Figma", url: "https://figma.com", category: "Design" },
+  { name: "Canva", url: "https://canva.com", category: "Design" },
+  { name: "Adobe Creative Cloud", url: "https://adobe.com/creativecloud", category: "Design" },
+  { name: "Sketch", url: "https://sketch.com", category: "Design" },
+  { name: "InVision", url: "https://invisionapp.com", category: "Design" },
+  { name: "Miro", url: "https://miro.com", category: "Design" },
+  { name: "Mural", url: "https://mural.co", category: "Design" },
+  { name: "FigJam", url: "https://figma.com/figjam", category: "Design" },
+  { name: "Whimsical", url: "https://whimsical.com", category: "Design" },
+  { name: "Lucidchart", url: "https://lucidchart.com", category: "Design" },
+  { name: "Pitch", url: "https://pitch.com", category: "Design" },
+  { name: "Prezi", url: "https://prezi.com", category: "Design" },
+  { name: "Visme", url: "https://visme.co", category: "Design" },
+
+  // --- HR & Recruitment ---
+  { name: "BambooHR", url: "https://bamboohr.com", category: "HR" },
+  { name: "Workday", url: "https://workday.com", category: "HR" },
+  { name: "Personio", url: "https://personio.com", category: "HR" },
+  { name: "Greenhouse", url: "https://greenhouse.io", category: "HR" },
+  { name: "Lever", url: "https://lever.co", category: "HR" },
+  { name: "Gusto", url: "https://gusto.com", category: "HR" },
+  { name: "Rippling", url: "https://rippling.com", category: "HR" },
+  { name: "Culture Amp", url: "https://cultureamp.com", category: "HR" },
+  { name: "15Five", url: "https://15five.com", category: "HR" },
+  { name: "Lattice", url: "https://lattice.com", category: "HR" },
+  { name: "HiBob", url: "https://hibob.com", category: "HR" },
+
+  // --- Finance & Administratie ---
+  { name: "QuickBooks", url: "https://quickbooks.intuit.com", category: "Finance" },
+  { name: "Xero", url: "https://xero.com", category: "Finance" },
+  { name: "Exact Online", url: "https://exact.com", category: "Finance" },
+  { name: "Twinfield", url: "https://twinfield.com", category: "Finance" },
+  { name: "AFAS", url: "https://afas.nl", category: "Finance" },
+  { name: "Mollie", url: "https://mollie.com", category: "Finance" },
+  { name: "Stripe", url: "https://stripe.com", category: "Finance" },
+  { name: "PayPal", url: "https://paypal.com", category: "Finance" },
+  { name: "Wise", url: "https://wise.com", category: "Finance" },
+  { name: "Expensify", url: "https://expensify.com", category: "Finance" },
+  { name: "SAP", url: "https://sap.com", category: "Finance" },
+  { name: "NetSuite", url: "https://netsuite.com", category: "Finance" },
+
+  // --- Ontwikkeling & IT ---
+  { name: "GitHub", url: "https://github.com", category: "Development" },
+  { name: "GitLab", url: "https://gitlab.com", category: "Development" },
+  { name: "Bitbucket", url: "https://bitbucket.org", category: "Development" },
+  { name: "Visual Studio Code", url: "https://code.visualstudio.com", category: "Development" },
+  { name: "Vercel", url: "https://vercel.com", category: "Development" },
+  { name: "Netlify", url: "https://netlify.com", category: "Development" },
+  { name: "AWS", url: "https://aws.amazon.com", category: "Cloud" },
+  { name: "Google Cloud Platform", url: "https://cloud.google.com", category: "Cloud" },
+  { name: "Microsoft Azure", url: "https://azure.microsoft.com", category: "Cloud" },
+  { name: "Heroku", url: "https://heroku.com", category: "Cloud" },
+  { name: "DigitalOcean", url: "https://digitalocean.com", category: "Cloud" },
+  { name: "Docker", url: "https://docker.com", category: "Development" },
+  { name: "Postman", url: "https://postman.com", category: "Development" },
+  { name: "Sentry", url: "https://sentry.io", category: "Development" },
+  { name: "Datadog", url: "https://datadoghq.com", category: "Development" },
+  { name: "New Relic", url: "https://newrelic.com", category: "Development" },
+  { name: "PagerDuty", url: "https://pagerduty.com", category: "Development" },
+  { name: "Terraform", url: "https://terraform.io", category: "Development" },
+
+  // --- Beveiliging & Compliance ---
+  { name: "1Password", url: "https://1password.com", category: "Security" },
+  { name: "LastPass", url: "https://lastpass.com", category: "Security" },
+  { name: "Bitwarden", url: "https://bitwarden.com", category: "Security" },
+  { name: "Okta", url: "https://okta.com", category: "Security" },
+  { name: "Auth0", url: "https://auth0.com", category: "Security" },
+  { name: "CrowdStrike", url: "https://crowdstrike.com", category: "Security" },
+  { name: "Cloudflare", url: "https://cloudflare.com", category: "Security" },
+  { name: "Norton", url: "https://norton.com", category: "Security" },
+  { name: "Proofpoint", url: "https://proofpoint.com", category: "Security" },
+  { name: "Vanta", url: "https://vanta.com", category: "Security" },
+  { name: "Drata", url: "https://drata.com", category: "Security" },
+  { name: "OneTrust", url: "https://onetrust.com", category: "Security" },
+
+  // --- Klantenservice & Support ---
+  { name: "Zendesk", url: "https://zendesk.com", category: "Support" },
+  { name: "Intercom", url: "https://intercom.com", category: "Support" },
+  { name: "Freshdesk", url: "https://freshworks.com/freshdesk", category: "Support" },
+  { name: "Crisp", url: "https://crisp.chat", category: "Support" },
+  { name: "Help Scout", url: "https://helpscout.com", category: "Support" },
+  { name: "Drift", url: "https://drift.com", category: "Support" },
+  { name: "LiveChat", url: "https://livechat.com", category: "Support" },
+  { name: "Tidio", url: "https://tidio.com", category: "Support" },
+
+  // --- E-commerce ---
+  { name: "Shopify", url: "https://shopify.com", category: "E-commerce" },
+  { name: "WooCommerce", url: "https://woocommerce.com", category: "E-commerce" },
+  { name: "Magento", url: "https://magento.com", category: "E-commerce" },
+  { name: "BigCommerce", url: "https://bigcommerce.com", category: "E-commerce" },
+  { name: "Lightspeed", url: "https://lightspeedhq.com", category: "E-commerce" },
+
+  // --- Document & Ondertekening ---
+  { name: "DocuSign", url: "https://docusign.com", category: "Documenten" },
+  { name: "Adobe Sign", url: "https://acrobat.adobe.com/us/en/sign", category: "Documenten" },
+  { name: "PandaDoc", url: "https://pandadoc.com", category: "Documenten" },
+  { name: "HelloSign", url: "https://hellosign.com", category: "Documenten" },
+  { name: "Google Docs", url: "https://docs.google.com", category: "Documenten" },
+  { name: "Microsoft Word", url: "https://microsoft.com/microsoft-365/word", category: "Documenten" },
+  { name: "Microsoft Excel", url: "https://microsoft.com/microsoft-365/excel", category: "Documenten" },
+  { name: "Microsoft PowerPoint", url: "https://microsoft.com/microsoft-365/powerpoint", category: "Documenten" },
+  { name: "Google Sheets", url: "https://sheets.google.com", category: "Documenten" },
+  { name: "Google Slides", url: "https://slides.google.com", category: "Documenten" },
+
+  // --- Automatisering & Integratie ---
+  { name: "Zapier", url: "https://zapier.com", category: "Automatisering" },
+  { name: "Make", url: "https://make.com", category: "Automatisering" },
+  { name: "Power Automate", url: "https://powerautomate.microsoft.com", category: "Automatisering" },
+  { name: "n8n", url: "https://n8n.io", category: "Automatisering" },
+  { name: "IFTTT", url: "https://ifttt.com", category: "Automatisering" },
+  { name: "Workato", url: "https://workato.com", category: "Automatisering" },
+  { name: "Tray.io", url: "https://tray.io", category: "Automatisering" },
+
+  // --- Enquêtes & Formulieren ---
+  { name: "Typeform", url: "https://typeform.com", category: "Formulieren" },
+  { name: "Google Forms", url: "https://docs.google.com/forms", category: "Formulieren" },
+  { name: "SurveyMonkey", url: "https://surveymonkey.com", category: "Formulieren" },
+  { name: "Microsoft Forms", url: "https://forms.microsoft.com", category: "Formulieren" },
+  { name: "Jotform", url: "https://jotform.com", category: "Formulieren" },
+  { name: "Tally", url: "https://tally.so", category: "Formulieren" },
+
+  // --- Video & Content ---
+  { name: "YouTube", url: "https://youtube.com", category: "Video" },
+  { name: "Vimeo", url: "https://vimeo.com", category: "Video" },
+  { name: "Wistia", url: "https://wistia.com", category: "Video" },
+  { name: "StreamYard", url: "https://streamyard.com", category: "Video" },
+  { name: "WordPress", url: "https://wordpress.com", category: "CMS" },
+  { name: "Webflow", url: "https://webflow.com", category: "CMS" },
+  { name: "Squarespace", url: "https://squarespace.com", category: "CMS" },
+  { name: "Wix", url: "https://wix.com", category: "CMS" },
+  { name: "Contentful", url: "https://contentful.com", category: "CMS" },
+  { name: "Sanity", url: "https://sanity.io", category: "CMS" },
+
+  // --- Planning & Scheduling ---
+  { name: "Calendly", url: "https://calendly.com", category: "Planning" },
+  { name: "Cal.com", url: "https://cal.com", category: "Planning" },
+  { name: "Doodle", url: "https://doodle.com", category: "Planning" },
+  { name: "Google Calendar", url: "https://calendar.google.com", category: "Planning" },
+  { name: "Microsoft Outlook", url: "https://outlook.com", category: "Planning" },
+  { name: "Clockify", url: "https://clockify.me", category: "Planning" },
+  { name: "Toggl", url: "https://toggl.com", category: "Planning" },
+  { name: "Harvest", url: "https://getharvest.com", category: "Planning" },
+
+  // --- Data & BI ---
+  { name: "Tableau", url: "https://tableau.com", category: "Data & BI" },
+  { name: "Power BI", url: "https://powerbi.microsoft.com", category: "Data & BI" },
+  { name: "Looker", url: "https://looker.com", category: "Data & BI" },
+  { name: "Metabase", url: "https://metabase.com", category: "Data & BI" },
+  { name: "Snowflake", url: "https://snowflake.com", category: "Data & BI" },
+  { name: "Databricks", url: "https://databricks.com", category: "Data & BI" },
+  { name: "MongoDB", url: "https://mongodb.com", category: "Data & BI" },
+  { name: "Supabase", url: "https://supabase.com", category: "Data & BI" },
+
+  // --- Overig populair ---
+  { name: "Spotify", url: "https://spotify.com", category: "Entertainment" },
+  { name: "Netflix", url: "https://netflix.com", category: "Entertainment" },
+  { name: "LinkedIn", url: "https://linkedin.com", category: "Social" },
+  { name: "Facebook", url: "https://facebook.com", category: "Social" },
+  { name: "Instagram", url: "https://instagram.com", category: "Social" },
+  { name: "Twitter / X", url: "https://x.com", category: "Social" },
+  { name: "TikTok", url: "https://tiktok.com", category: "Social" },
+  { name: "Reddit", url: "https://reddit.com", category: "Social" },
+  { name: "Pinterest", url: "https://pinterest.com", category: "Social" },
+  { name: "Uber", url: "https://uber.com", category: "Transport" },
+  { name: "Airbnb", url: "https://airbnb.com", category: "Reizen" },
+  { name: "Booking.com", url: "https://booking.com", category: "Reizen" },
+];

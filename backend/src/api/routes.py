@@ -26,23 +26,71 @@ _recent_results: dict[str, ComplianceResult] = {}
 
 @router.get("/search-tool")
 async def search_tool(q: str = Query(..., min_length=1, max_length=100)):
-    """Zoek naar een tool om te bevestigen welke de gebruiker bedoelt."""
+    """Zoek naar een tool en gebruik LLM om de officiële naam te extraheren."""
+    from langchain_openai import AzureChatOpenAI
+
+    from ..config import settings
+
+    # Stap 1: DuckDuckGo zoekresultaten ophalen
     try:
         with DDGS() as ddgs:
-            results = list(ddgs.text(f"{q} software official site", max_results=5))
+            raw_results = list(ddgs.text(f"{q} software official website", max_results=8))
     except Exception as e:
         logger.error(f"Tool search failed: {e}")
-        return []
+        return [{"name": q.strip(), "url": ""}]
 
-    return [
-        {
-            "name": r.get("title", ""),
-            "url": r.get("href", ""),
-            "description": r.get("body", ""),
-        }
-        for r in results
-        if r.get("href")
-    ]
+    if not raw_results:
+        return [{"name": q.strip(), "url": ""}]
+
+    # Stap 2: Stuur resultaten naar LLM voor naam-extractie
+    search_summary = "\n".join(
+        f"- Title: {r.get('title', '')} | URL: {r.get('href', '')}"
+        for r in raw_results
+        if r.get("title") and r.get("href")
+    )
+
+    prompt = f"""De gebruiker heeft gezocht op: "{q}"
+Dit kan een typo bevatten. Bepaal welke software tool(s) de gebruiker bedoelt.
+
+Zoekresultaten:
+{search_summary}
+
+Antwoord ALLEEN met een JSON array. Geen uitleg, geen markdown.
+[{{"name": "Toolnaam", "url": "https://website.com"}}]
+
+BELANGRIJK:
+- "name" = ALLEEN de korte productnaam. Voorbeelden: "Slack", "Notion", "Zoom", "ChatGPT", "Microsoft Teams", "Google Drive"
+- NOOIT titels of beschrijvingen als naam gebruiken (FOUT: "Download Center for Zoom", "Notion Desktop App for Mac & Windows", "Introducing ChatGPT")
+- "url" = de homepage van het product (NIET /download, /signin, /pricing)
+- Alleen echte, unieke softwareproducten (geen blogposts, reviews, of variaties van dezelfde tool)
+- Corrigeer typo's in de zoekopdracht (bijv. "salck" → "Slack")
+- 1 tot 3 resultaten"""
+
+    try:
+        llm = AzureChatOpenAI(
+            azure_deployment=settings.azure_openai_deployment,
+            azure_endpoint=settings.azure_openai_endpoint,
+            api_key=settings.azure_openai_api_key,
+            api_version=settings.azure_openai_api_version,
+            temperature=0,
+        )
+        response = await llm.ainvoke(prompt)
+        content = response.content.strip()
+
+        # Parse JSON uit response (kan in markdown code block zitten)
+        if "```json" in content:
+            content = content.split("```json")[1].split("```")[0]
+        elif "```" in content:
+            content = content.split("```")[1].split("```")[0]
+
+        tools = json.loads(content.strip())
+        if isinstance(tools, list) and tools:
+            return tools[:3]
+    except Exception as e:
+        logger.error(f"LLM name extraction failed for '{q}': {e}")
+
+    # Fallback: geef de query zelf terug
+    return [{"name": q.strip(), "url": ""}]
 
 
 @router.post("/check")

@@ -57,7 +57,6 @@ export interface LeadData {
 export interface ToolSearchResult {
   name: string;
   url: string;
-  description: string;
 }
 
 // === API Functions ===
